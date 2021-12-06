@@ -112,7 +112,7 @@ class HaodouScriptTest implements Script{
         request.putContextMap("type","url1");
         Map<String, String> urlContext = new HashMap<>();
         urlContext.put("type","page1");
-        request.putUrlContextMap(urlContext);
+        request.addUrlContextMap(urlContext);
         return request;
     }
 }

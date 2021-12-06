@@ -104,11 +104,15 @@ public class HttpUriRequestConverter {
         }
         throw new IllegalArgumentException("Illegal HTTP Method " + method);
     }
-
+    // 添加 form表单参数
     private RequestBuilder addFormParams(RequestBuilder requestBuilder, Request request) {
+        String paramText = request.getParamText();
+        String method = request.getMethod();
         if (request.getRequestBody() != null) {
-            ByteArrayEntity entity = new ByteArrayEntity(request.getRequestBody().getBody());
-            entity.setContentType(request.getRequestBody().getContentType());
+            ByteArrayEntity entity = new ByteArrayEntity(paramText.getBytes());
+           // ByteArrayEntity entity = new ByteArrayEntity(request.getRequestBody().getBody());
+            entity.setContentType(method);
+           // entity.setContentType(request.getRequestBody().getContentType());
             requestBuilder.setEntity(entity);
         }
         return requestBuilder;

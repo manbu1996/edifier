@@ -1,6 +1,6 @@
 package com.rambler.edifier.main;
 
-import com.rambler.edifier.core.MySpider;
+import com.rambler.edifier.core.EdifierSpider;
 import com.rambler.edifier.core.Script;
 import com.rambler.edifier.groovy.HaodouScriptTest;
 import com.rambler.edifier.page.Page;
@@ -56,7 +56,7 @@ public class XiangHaMain {
                 return null;
             }
         });
-        MySpider.create(haoDouScript).setSite(Site.me()).thread(thread).addRequest(seed).run();
+        EdifierSpider.create(haoDouScript).setSite(Site.me()).thread(thread).addRequest(seed).run();
     }
     // 脚本实体
     static String  text="package com.rambler.edifier.groovy\n" +
@@ -200,7 +200,7 @@ public class XiangHaMain {
                     return null;
                 }
             });
-            MySpider.create(groovyObject).setSite(Site.me()).thread(1).addRequest(seed).run();
+            EdifierSpider.create(groovyObject).setSite(Site.me()).thread(1).addRequest(seed).run();
             //Request o = groovyObject.invokeMethod("seed", "null");
         } catch (InstantiationException e) {
             e.printStackTrace();

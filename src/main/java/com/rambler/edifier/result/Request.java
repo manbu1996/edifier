@@ -1,5 +1,6 @@
 package com.rambler.edifier.result;
 
+import com.rambler.edifier.httpclient.HttpConstant;
 import com.rambler.edifier.work.Downloader;
 import com.rambler.edifier.work.WorkDownloader;
 import us.codecraft.webmagic.model.HttpRequestBody;
@@ -15,18 +16,13 @@ public class Request implements Serializable {
     public static final String CYCLE_TRIED_TIMES = "_cycle_tried_times";
     private static final long serialVersionUID = -7585546472602528451L;
     private volatile Map<String, String> urlContext;
+    private volatile Map<String, String> param;
+    private volatile String paramText;
 
-    public void addUrlContext(Map<String, String> urlContext) {
-        this.urlContext = urlContext;
-    }
-
-    public Map<String, String> getUrlContext() {
-        return this.urlContext;
-    }
+    private volatile String method;
 
     private String url;
 
-    private String method;
 
     private HttpRequestBody requestBody;
 
@@ -62,6 +58,44 @@ public class Request implements Serializable {
 
     private String charset;
 
+    public Request(String url,String method,Map<String, String>  headers,Map<String, String>  param){
+            this.url=url;
+            this.method=method;
+            this.headers=headers;
+            this.param=param;
+    };
+
+    public Request(String url,String method,Map<String, String>  headers){
+        this.url=url;
+        this.method=method;
+        this.headers=headers;
+    };
+    public void addUrlContext(Map<String, String> urlContext) {
+        this.urlContext = urlContext;
+    }
+
+
+
+    public void addParam(Map<String, String> urlContext) {
+        this.param = urlContext;
+    }
+    public void addParam(String k , String v) {
+        this.param .put(k,v);
+    }
+
+    public void addParam(String paramText) {
+        this.paramText=paramText;
+    }
+    public Map<String,String> getParam(){
+        return param;
+    }
+    public String getParamText(){
+        return paramText;
+    }
+
+    public Map<String, String> getUrlContext() {
+        return this.urlContext;
+    }
     public Request() {
     }
 
@@ -112,7 +146,7 @@ public class Request implements Serializable {
         return this;
     }
 
-    public Request putUrlContextMap(Map<String, String> urlContext) {
+    public Request addUrlContextMap(Map<String, String> urlContext) {
         if (this.urlContext == null) {
             this.urlContext = new HashMap<String, String>();
         }

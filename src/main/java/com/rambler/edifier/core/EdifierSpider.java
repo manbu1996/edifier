@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class MySpider implements Runnable, Task {
+public class EdifierSpider implements Runnable, Task {
 
     protected Downloader downloader;
     // 定义数据出口和子请求
@@ -93,8 +93,8 @@ public class MySpider implements Runnable, Task {
      * @return new spider
      * //@see PageProcessor
      */
-    public static MySpider create(Script script) {
-        return new MySpider(script);
+    public static EdifierSpider create(Script script) {
+        return new EdifierSpider(script);
     }
 
     /**
@@ -102,7 +102,7 @@ public class MySpider implements Runnable, Task {
      *
      * @param// pageProcessor pageProcessor
      */
-    public MySpider(Script script) {
+    public EdifierSpider(Script script) {
         this.script = script;
        // this.site = pageProcessor.getSite();
     }
@@ -114,7 +114,7 @@ public class MySpider implements Runnable, Task {
      * @param startUrls startUrls
      * @return this
      */
-    public MySpider startUrls(List<String> startUrls) {
+    public EdifierSpider startUrls(List<String> startUrls) {
         checkIfRunning();
         this.startRequests = MyUrlUtils.convertToRequests(startUrls);
         return this;
@@ -127,7 +127,7 @@ public class MySpider implements Runnable, Task {
      * @param startRequests startRequests
      * @return this
      */
-    public MySpider startRequest(List<Request> startRequests) {
+    public EdifierSpider startRequest(List<Request> startRequests) {
         checkIfRunning();
         this.startRequests = startRequests;
         return this;
@@ -140,7 +140,7 @@ public class MySpider implements Runnable, Task {
      * @param uuid uuid
      * @return this
      */
-    public MySpider setUUID(String uuid) {
+    public EdifierSpider setUUID(String uuid) {
         this.uuid = uuid;
         return this;
     }
@@ -153,7 +153,7 @@ public class MySpider implements Runnable, Task {
      * @see //#setScheduler(us.codecraft.webmagic.scheduler.Scheduler)
      */
     @Deprecated
-    public MySpider scheduler(Scheduler scheduler) {
+    public EdifierSpider scheduler(Scheduler scheduler) {
         return setScheduler(scheduler);
     }
 
@@ -165,7 +165,7 @@ public class MySpider implements Runnable, Task {
      * @see Scheduler
      * @since 0.2.1
      */
-    public MySpider setScheduler(Scheduler scheduler) {
+    public EdifierSpider setScheduler(Scheduler scheduler) {
         checkIfRunning();
         Scheduler oldScheduler = this.scheduler;
         this.scheduler = scheduler;
@@ -187,7 +187,7 @@ public class MySpider implements Runnable, Task {
      * @deprecated
      */
     @Deprecated
-    public MySpider pipeline(Pipeline pipeline) {
+    public EdifierSpider pipeline(Pipeline pipeline) {
         return addPipeline(pipeline);
     }
 
@@ -199,7 +199,7 @@ public class MySpider implements Runnable, Task {
      * @see Pipeline
      * @since 0.2.1
      */
-    public MySpider addPipeline(Pipeline pipeline) {
+    public EdifierSpider addPipeline(Pipeline pipeline) {
         checkIfRunning();
         this.pipelines.add(pipeline);
         return this;
@@ -213,7 +213,7 @@ public class MySpider implements Runnable, Task {
      * @see Pipeline
      * @since 0.4.1
      */
-    public MySpider setPipelines(List<Pipeline> pipelines) {
+    public EdifierSpider setPipelines(List<Pipeline> pipelines) {
         checkIfRunning();
         this.pipelines = pipelines;
         return this;
@@ -224,7 +224,7 @@ public class MySpider implements Runnable, Task {
      *
      * @return this
      */
-    public MySpider clearPipeline() {
+    public EdifierSpider clearPipeline() {
         pipelines = new ArrayList<Pipeline>();
         return this;
     }
@@ -238,7 +238,7 @@ public class MySpider implements Runnable, Task {
      * @deprecated
      */
     @Deprecated
-    public MySpider downloader(Downloader downloader) {
+    public EdifierSpider downloader(Downloader downloader) {
         return setDownloader(downloader);
     }
 
@@ -249,7 +249,7 @@ public class MySpider implements Runnable, Task {
      * @return this
      * @see Downloader
      */
-    public MySpider setDownloader(Downloader downloader) {
+    public EdifierSpider setDownloader(Downloader downloader) {
         checkIfRunning();
         this.downloader = downloader;
         return this;
@@ -506,7 +506,7 @@ public class MySpider implements Runnable, Task {
      * @param urls urls
      * @return this
      */
-    public MySpider addUrl(String... urls) {
+    public EdifierSpider addUrl(String... urls) {
         for (String url : urls) {
             addRequest(new Request(url));
         }
@@ -558,7 +558,7 @@ public class MySpider implements Runnable, Task {
      * @param requests requests
      * @return this
      */
-    public MySpider addRequest(Request... requests) {
+    public EdifierSpider addRequest(Request... requests) {
         for (Request request : requests) {
             addRequest(request);
         }
@@ -608,7 +608,7 @@ public class MySpider implements Runnable, Task {
      * @param threadNum threadNum
      * @return this
      */
-    public MySpider thread(int threadNum) {
+    public EdifierSpider thread(int threadNum) {
         checkIfRunning();
         this.threadNum = threadNum;
         if (threadNum <= 0) {
@@ -624,7 +624,7 @@ public class MySpider implements Runnable, Task {
      * @param threadNum threadNum
      * @return this
      */
-    public MySpider thread(ExecutorService executorService, int threadNum) {
+    public EdifierSpider thread(ExecutorService executorService, int threadNum) {
         checkIfRunning();
         this.threadNum = threadNum;
         if (threadNum <= 0) {
@@ -646,7 +646,7 @@ public class MySpider implements Runnable, Task {
      * @param exitWhenComplete exitWhenComplete
      * @return this
      */
-    public MySpider setExitWhenComplete(boolean exitWhenComplete) {
+    public EdifierSpider setExitWhenComplete(boolean exitWhenComplete) {
         this.exitWhenComplete = exitWhenComplete;
         return this;
     }
@@ -723,7 +723,7 @@ public class MySpider implements Runnable, Task {
      * @return this
      * @since 0.4.0
      */
-    public MySpider setSpawnUrl(boolean spawnUrl) {
+    public EdifierSpider setSpawnUrl(boolean spawnUrl) {
         this.spawnUrl = spawnUrl;
         return this;
     }
@@ -740,7 +740,7 @@ public class MySpider implements Runnable, Task {
         return uuid;
     }
 
-    public MySpider setExecutorService(ExecutorService executorService) {
+    public EdifierSpider setExecutorService(ExecutorService executorService) {
         checkIfRunning();
         this.executorService = executorService;
         return this;
@@ -750,7 +750,7 @@ public class MySpider implements Runnable, Task {
     public Site getSite() {
         return site;
     }
-    public MySpider setSite(Site site){
+    public EdifierSpider setSite(Site site){
         this.site=site;
         return this;
     }
@@ -759,7 +759,7 @@ public class MySpider implements Runnable, Task {
         return spiderListeners;
     }
 
-    public MySpider setSpiderListeners(List<SpiderListener> spiderListeners) {
+    public EdifierSpider setSpiderListeners(List<SpiderListener> spiderListeners) {
         this.spiderListeners = spiderListeners;
         return this;
     }
