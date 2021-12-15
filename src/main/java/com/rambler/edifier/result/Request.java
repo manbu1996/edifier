@@ -131,7 +131,7 @@ public class Request implements Serializable {
 
 
     public <T> Request putContextMap(Map<String, String> urlContext) {
-        if (urlContext == null) {
+        if (this.urlContext == null) {
             urlContext = new HashMap<String, String>();
         }
         urlContext.putAll(urlContext);
